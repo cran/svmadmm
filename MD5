@@ -1,11 +1,11 @@
-3cc5a346081f3d6160363439b122f226 *DESCRIPTION
+85a4a22e78e7765d7bf6ad88a16144ab *DESCRIPTION
 3428e029236d4f8a635aa32b63bf6eed *NAMESPACE
 9e79e34567e6a2bbbd8f7b4fcac6e82b *R/svm.admm.R
 2571d4fd9596e188c0741e5697c5cdef *R/svm.predict.R
 e968b29014b6352a5825a8c25f59ec21 *man/svm.admm.Rd
 ad54fc28346254a1665a6058d53e0e9c *man/svm.predict.Rd
 0f2d8ca9fb7117a523efc6410b842bf9 *src/kerneliadmm.c
-218fe5fb09938ef8f91fb4037c5f1036 *src/linear_math.c
+7fc95915860e0382b1ed9305b3740630 *src/linear_math.c
 e855b6195c83bb4e93ef01f233aa1278 *src/linear_math.h
 1be531208fc6ce15d12ce88ec6192cc5 *src/linearadmm.c
 c2e6d88ff6de9c56d57212cc48429fb2 *src/lineariadmm.c

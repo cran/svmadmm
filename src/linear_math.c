@@ -7,7 +7,7 @@
 #ifdef NDEBUG
 #define HANDLE_ERROR
 #else
-#define HANDLE_ERROR abort();	/* if it's debugging, abort the program */
+#define HANDLE_ERROR;	/* if it's debugging, abort the program */
 #endif
 
 #ifdef LB_USE_ROW_MAJOR_MATRIX
