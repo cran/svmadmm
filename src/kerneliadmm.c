@@ -27,7 +27,7 @@ lbBool kerneliadmm(lbSize *size, double *kdata, lbScalar *zeta, lbScalar *lambda
 #define MU		2
 
 	lbScalar sz;
-	lbScalar eps, scalar, sum1, sum2, sum, ratio;
+	lbScalar eps, scalar, sum1, sum2, ratio;
 	lbVector *vecs, vec, *out;
 	lbVector *iadmm, *old, *diff, *alphaAbs, *vecC, *vecOne, *vecRho, *tmpVec;
 	lbMatrix kmat, tmpMat;
@@ -78,7 +78,6 @@ lbBool kerneliadmm(lbSize *size, double *kdata, lbScalar *zeta, lbScalar *lambda
 	lbVectorClear(vecRho, *rho);
 	lbVectorClear(tmpVec, 1);
 	scalar = 0;
-	sum = 0;
 
 	/* temp = diag(zeta, n) - k */
 	lbMatrixClearDiag(&tmpMat, *zeta);

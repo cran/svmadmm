@@ -183,11 +183,10 @@ lbBool linearadmm(lbSize *Nsize, lbSize *Psize, double *xdata, double *ydata, do
 
 		/* e.r = sqrt(n) * eps + eps * max(c(com1, com2, com3)) */
         temp = com1;
-		(temp < com2) && (temp = com2);
-		(temp < com3) && (temp = com3);
+		temp = temp > com2 ? temp : com2;
+		temp = temp > com3 ? temp : com3;
 
 		epsR = sqrt(n) * eps + eps * temp;
-
 		/* e.s = sqrt(p) * eps + eps * rho * norm( as.matrix( t(y.tr * x.tr) %*% admm$mu), type = "f") */
 		lbMatrixVectorMultiply(tyx, admm[mu], pvec);
 		temp = lbVectorNorm(*pvec);

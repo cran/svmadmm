@@ -7,7 +7,7 @@
 #ifdef NDEBUG
 #define HANDLE_ERROR
 #else
-#define HANDLE_ERROR;	/* if it's debugging, abort the program */
+#define HANDLE_ERROR /* if it's debugging, abort the program */
 #endif
 
 #ifdef LB_USE_ROW_MAJOR_MATRIX
@@ -193,7 +193,7 @@ void lbVectorClear(lbVector *vec, lbScalar value)
 {
 	lbSize i, sz;
 	sz = lbVectorSize(*vec);
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		vec->data[i] = value;
 	}
@@ -221,7 +221,7 @@ void lbVectorAddition(const lbVector left, const lbVector right, lbVector *out)
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = left.data[i] + right.data[i];
 	}
@@ -237,7 +237,7 @@ void lbVectorSubtraction(const lbVector left, const lbVector right, lbVector *ou
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = left.data[i] - right.data[i];
 	}
@@ -252,7 +252,7 @@ lbScalar lbVectorDotProduct(const lbVector left, const lbVector right)
 		HANDLE_ERROR
 		return 0;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		sum += left.data[i] * right.data[i];
 	}
@@ -263,7 +263,7 @@ lbScalar lbVectorNorm(const lbVector vec)
 {
 	lbScalar sum = 0;
 	lbSize i, sz = vec.size;
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		sum += vec.data[i] * vec.data[i];
 	}
@@ -284,7 +284,7 @@ void lbVectorProduct(const lbVector left, const lbVector right, lbVector *out)
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < right.size; ++i) {
 		out->data[i] = right.data[i] * left.data[i];
 	}
@@ -299,7 +299,7 @@ void lbVectorScalarProduct(const lbVector vec, lbScalar scalar, lbVector *out)
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < vec.size; ++i) {
 		out->data[i] = vec.data[i] * scalar;
 	}
@@ -310,7 +310,7 @@ lbScalar lbVectorSumElem(const lbVector vec)
 	lbSize i;
 	lbScalar sum;
 	sum = 0;
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < vec.size; ++i) {
 		sum += vec.data[i];
 	}
@@ -325,7 +325,7 @@ void lbVectorForeach(const lbVector in, lbVector *out, lbUnaryOperation uOper, v
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < in.size; ++i) {
 		out->data[i] = uOper(in.data[i], params);
 	}
@@ -341,7 +341,7 @@ void lbVectorBiForeach(const lbVector vec1, const lbVector vec2, lbVector *out, 
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = biOper(vec1.data[i], vec2.data[i], params);
 	}
@@ -507,7 +507,7 @@ void lbMatrixTranspose(const lbMatrix in, lbMatrix *out)
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i,j)
+	// #pragma omp parallel for private(i,j)
     for (i = 0; i < out->nRow; ++i)
 	{
 	    for (j = 0; j < out->nCol; ++j)
@@ -527,7 +527,7 @@ void lbMatrixAddition(const lbMatrix matL, const lbMatrix matR, lbMatrix *out)
 		return;
 	}
 	sz = matL.nRow * matL.nCol;
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = matL.data[i] + matR.data[i];
 	}
@@ -542,7 +542,7 @@ void lbMatrixSubtraction(const lbMatrix matL, const lbMatrix matR, lbMatrix *out
 		return;
 	}
 	sz = matL.nRow * matL.nCol;
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = matL.data[i] - matR.data[i];
 	}
@@ -564,7 +564,7 @@ void lbVectorMatrixMultiply(const lbVector vec, const lbMatrix mat, lbVector *ou
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i,j)
+	// #pragma omp parallel for private(i,j)
 	for (i = 0; i < out->size; ++i) {
 		sum = 0;
 		for (j = 0; j < vec.size; ++j) {
@@ -587,7 +587,7 @@ void lbVectorMatrixProduct(const lbVector vec, const lbMatrix mat, lbMatrix *out
 		lm_reportError("lbVectorMatrixProduct(vec, mat, *out): mat and out matrix do not have same size");
 		HANDLE_ERROR
 	}
-	#pragma omp parallel for private(i,j)
+	// #pragma omp parallel for private(i,j)
 
 	for (i = 0; i < mat.nRow; ++i) 
 	{
@@ -615,7 +615,7 @@ void lbMatrixVectorMultiply(const lbMatrix mat, const lbVector vec, lbVector *ou
 		HANDLE_ERROR
 		return;
 	}
-	#pragma omp parallel for private(i,j)
+	// #pragma omp parallel for private(i,j)
 	for (i = 0; i < out->size; ++i) {
 		sum = 0;
 		for (j = 0; j < mat.nCol; ++j) {
@@ -647,7 +647,7 @@ void lbMatrixMultiply(const lbMatrix left, const lbMatrix right, lbMatrix *out)
 		HANDLE_ERROR;
 		return;
 	}
-	#pragma omp parallel for private(i,j,k)
+	// #pragma omp parallel for private(i,j,k)
 	for (i = 0; i < left.nRow; ++i)
 	{
 		for (j = 0; j < right.nCol; ++j)
@@ -673,7 +673,7 @@ void lbMatrixColSum(const lbMatrix mat, lbVector *out)
 		HANDLE_ERROR;
 		return;
 	}
-	#pragma omp parallel for private(i,j)
+	// #pragma omp parallel for private(i,j)
 	for (i = 0; i < mat.nCol; ++i)
 	{
 		sum = 0;
@@ -695,7 +695,7 @@ void lbMatrixBiForeach(const lbMatrix mat1, const lbMatrix mat2, lbMatrix *out, 
 		return;
 	}
 	sz = mat1.nRow * mat1.nCol;
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		out->data[i] = biOper(mat1.data[i], mat2.data[i], params);
 	}
@@ -717,7 +717,7 @@ void lbMatrixSetDiag(lbMatrix *mat, const lbVector values)
 		return;
 	}
 	memset(mat->data, 0, mat->nRow * mat->nCol * sizeof(lbScalar));
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < sz; ++i) {
 		mat->data[PMATRIX_INDEX(mat, i, i)] = values.data[i];
 	}
@@ -732,7 +732,7 @@ void lbMatrixClearDiag(lbMatrix *mat, lbScalar value)
 		return;
 	}
 	memset(mat->data, 0, mat->nRow * mat->nCol * sizeof(lbScalar));
-	#pragma omp parallel for private(i)
+	// #pragma omp parallel for private(i)
 	for (i = 0; i < mat->nRow; ++i) {
 		mat->data[PMATRIX_INDEX(mat, i, i)] = value;
 	}
